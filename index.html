@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pesan Karangan Bunga · Puspa Agung Florist</title>
+<meta name="description" content="Katalog dan formulir pesanan Puspa Agung Florist">
+<style>
+  :root { --bugenvil:#A61E55; --muda:#F8E4EC; --daun:#256B45; --emas:#B9975B; --gading:#FAF8F5; --tinta:#2A1720; --abu:#6B5A62; --garis:#EAD7DF; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--gading); color:var(--tinta); font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
+  header { background:var(--bugenvil); color:#fff; padding:18px 16px 16px; text-align:center; }
+  header .mono { width:48px; height:48px; border-radius:50%; background:#fff; color:var(--bugenvil); display:inline-flex; align-items:center; justify-content:center; font:800 18px Georgia, serif; }
+  header h1 { margin:8px 0 2px; font:700 22px Georgia, serif; }
+  header p { margin:0; font-size:13px; opacity:.9; }
+  main { max-width:720px; margin:0 auto; padding:16px; }
+  h2 { font-size:16px; margin:22px 0 10px; }
+  .saring { display:flex; gap:6px; }
+  .cip { border:1px solid #D6C3CB; background:#fff; border-radius:999px; padding:8px 14px; font-size:13px; cursor:pointer; }
+  .cip.aktif { background:var(--bugenvil); color:#fff; border-color:var(--bugenvil); }
+  .grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:10px; }
+  @media (min-width:560px) { .grid { grid-template-columns:repeat(3,1fr); } }
+  .kartu { background:#fff; border:1px solid var(--garis); border-radius:16px; overflow:hidden; text-align:left; cursor:pointer; padding:0; font:inherit; color:inherit; }
+  .kartu.pilih { border:2px solid var(--bugenvil); }
+  .gbr { position:relative; }
+  .gbr img { width:100%; aspect-ratio:1; object-fit:cover; display:block; }
+  .ilustrasi { position:absolute; left:6px; bottom:6px; background:rgba(255,255,255,.88); color:var(--abu); font-size:10px; padding:2px 6px; border-radius:4px; }
+  .isi { padding:8px 10px 10px; }
+  .kode { font-size:11px; font-weight:700; color:var(--emas); }
+  .nama { font-size:14px; font-weight:600; line-height:1.2; }
+  .ket { font-size:11px; color:var(--abu); line-height:1.25; }
+  .harga { font-size:15px; font-weight:800; color:var(--bugenvil); margin-top:4px; }
+  form { background:#fff; border:1px solid var(--garis); border-radius:16px; padding:14px; display:grid; gap:12px; }
+  label { font-size:12px; color:var(--abu); display:block; }
+  input, textarea { width:100%; margin-top:4px; border:1px solid #D6C3CB; border-radius:12px; padding:11px 12px; font:inherit; font-size:15px; color:var(--tinta); background:#fff; }
+  textarea { text-transform:uppercase; }
+  .dua { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .ringkas { background:var(--gading); border-radius:12px; padding:10px 12px; font-size:14px; }
+  .ringkas div { display:flex; justify-content:space-between; }
+  button.kirim { background:var(--bugenvil); color:#fff; border:0; border-radius:12px; padding:14px; font-size:16px; font-weight:700; cursor:pointer; }
+  button.kirim:disabled { opacity:.6; }
+  .pesan { font-size:13px; padding:10px 12px; border-radius:12px; }
+  .galat { background:#FBE9E7; color:#B3362B; }
+  .ok { background:#E2F1E6; color:var(--daun); }
+  .kecil { font-size:11px; color:var(--abu); }
+  footer { text-align:center; font-size:11px; color:var(--abu); padding:20px 16px 30px; }
+  details#rincian { border:1px solid var(--garis); border-radius:12px; background:var(--gading); }
+  details#rincian summary { cursor:pointer; padding:12px; font-weight:600; font-size:14px; color:var(--bugenvil); list-style:none; }
+  details#rincian summary::before { content:"▸ "; }
+  details#rincian[open] summary::before { content:"▾ "; }
+  .isi-rincian { padding:0 12px 12px; display:grid; gap:12px; }
+  .judul-kecil { font-size:13px; font-weight:700; margin-top:4px; }
+  h2 { margin-top:4px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="mono">PA</div>
+  <h1>Puspa Agung Florist</h1>
+  <p>Karangan Bunga untuk Setiap Momen Spesial</p>
+</header>
+<main>
+  <form id="form" autocomplete="on">
+    <h2>Formulir pesanan</h2>
+    <label>Nama lengkap pengirim<input name="nama" required maxlength="80" autocomplete="name"></label>
+    <label>No. WA (opsional)<input name="wa" type="tel" inputmode="tel" placeholder="08xx" autocomplete="tel"></label>
+    <label>Instansi / jabatan pengirim (opsional)<input name="instansi" maxlength="120" placeholder="mis. Kepala Bagian Umum PT ..."></label>
+
+    <details id="rincian">
+      <summary>Rincian pesanan <span class="kecil">(opsional, ketuk untuk membuka)</span></summary>
+      <div class="isi-rincian">
+        <p class="kecil">Boleh dikosongkan; admin akan melengkapinya bersama Anda.</p>
+
+        <div class="judul-kecil">Pilih karangan bunga</div>
+        <div class="saring">
+          <button type="button" class="cip aktif" data-k="Semua">Semua</button>
+          <button type="button" class="cip" data-k="Papan bunga">Papan bunga</button>
+          <button type="button" class="cip" data-k="Rangkaian">Rangkaian</button>
+        </div>
+        <div id="katalog" class="grid"><p class="kecil">Memuat katalog...</p></div>
+        <p class="kecil">Gambar bertanda "gambar ilustrasi" adalah contoh, bukan foto produk sebenarnya. Harga belum termasuk ongkos kirim.</p>
+        <div id="dipilih" class="pesan" hidden></div>
+
+        <div class="dua">
+          <label>Tanggal kirim<input name="tgl" type="date"></label>
+          <label>Jam kirim<input name="jam" placeholder="14.00" maxlength="20"></label>
+        </div>
+        <label>Kota<input name="kota" maxlength="80"></label>
+        <label>Alamat kirim lengkap<input name="alamat" maxlength="400"></label>
+        <label>Teks papan / kartu ucapan (huruf cetak)<textarea name="teks" rows="4" maxlength="600" placeholder="SELAMAT DAN SUKSES ATAS ... DARI: ..."></textarea></label>
+        <label>Catatan: warna, pita, dll.<input name="catatan" maxlength="400"></label>
+        <div class="ringkas">
+          <div><span>Harga</span><b id="harga">-</b></div>
+          <div><span>Ongkos kirim</span><span>dikonfirmasi admin</span></div>
+        </div>
+      </div>
+    </details>
+
+    <div id="pesan" class="pesan" hidden></div>
+    <button type="button" class="cip" id="unduh" hidden>Unduh formulir terisi</button>
+    <button class="kirim" type="submit" id="tombol">Kirim pesanan</button>
+    <p class="kecil">Setelah dikirim, pesanan masuk ke admin Puspa Agung Florist, lalu WhatsApp Anda terbuka berisi ringkasan untuk dikirim ke admin.
+      Admin mengonfirmasi jenis, harga, dan ongkos kirim, lalu mengirim nota pemesanan. Tanpa uang muka.</p>
+  </form>
+</main>
+<footer>Puspa Agung Florist · data Anda hanya dipakai untuk memproses pesanan ini.</footer>
+
+<script>
+  // Hanya alamat dan kunci PUBLIK (publishable) yang ada di halaman ini.
+  // Kunci ini hanya bisa memanggil pa_katalog_publik dan pa_formulir_kirim.
+  const SUPABASE_URL = "https://naxdeskepogevsaubdqq.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_59PSgy7JsoVSukCeWDyhxw_ShO6bz-L";
+
+  const rp = (n) => "Rp" + Math.round(Number(n) || 0).toLocaleString("id-ID");
+  const $ = (s) => document.querySelector(s);
+  let katalog = { jenis: [], wa_admin: "" };
+  let pilih = null;
+  let saring = "Semua";
+  let terakhir = "";
+
+  async function rpc(nama, isi) {
+    const r = await fetch(SUPABASE_URL + "/rest/v1/rpc/" + nama, {
+      method: "POST",
+      headers: { apikey: SUPABASE_KEY, Authorization: "Bearer " + SUPABASE_KEY, "Content-Type": "application/json" },
+      body: JSON.stringify(isi || {}),
+    });
+    const data = await r.json().catch(() => null);
+    if (!r.ok) throw new Error((data && (data.message || data.hint)) || "Gagal menghubungi server");
+    return data;
+  }
+
+  // Gambar katalog diletakkan satu folder dengan halaman ini (pa-ss.jpg, dst.)
+  function gambar(j) { return j.foto || (j.gambar || "").split("/").pop(); }
+
+  function tampil() {
+    const el = $("#katalog");
+    const daftar = katalog.jenis.filter((j) => saring === "Semua" || j.kelompok === saring);
+    el.innerHTML = "";
+    for (const j of daftar) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "kartu" + (pilih && pilih.kode === j.kode ? " pilih" : "");
+      b.innerHTML =
+        '<div class="gbr"><img alt="" loading="lazy">' + (j.foto ? "" : '<span class="ilustrasi">gambar ilustrasi</span>') + "</div>" +
+        '<div class="isi"><div class="kode"></div><div class="nama"></div><div class="ket"></div><div class="harga"></div></div>';
+      b.querySelector("img").src = gambar(j);
+      b.querySelector("img").alt = j.nama;
+      b.querySelector(".kode").textContent = j.kode;
+      b.querySelector(".nama").textContent = j.nama;
+      b.querySelector(".ket").textContent = j.keterangan || "";
+      b.querySelector(".harga").textContent = rp(j.harga);
+      b.onclick = () => { pilih = pilih && pilih.kode === j.kode ? null : j; tampil(); tampilPilih(); };
+      el.appendChild(b);
+    }
+  }
+  function tampilPilih() {
+    const d = $("#dipilih");
+    if (!pilih) { d.hidden = true; $("#harga").textContent = "-"; return; }
+    d.hidden = false;
+    d.className = "pesan ok";
+    d.textContent = pilih.kode + " · " + pilih.nama + " · " + rp(pilih.harga);
+    $("#harga").textContent = rp(pilih.harga);
+  }
+
+  document.querySelectorAll(".cip").forEach((c) => c.onclick = () => {
+    saring = c.dataset.k;
+    document.querySelectorAll(".cip").forEach((x) => x.classList.toggle("aktif", x === c));
+    tampil();
+  });
+
+  const hari = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Jakarta" }).format(new Date());
+  document.querySelector('input[name="tgl"]').min = hari;
+
+  // Tautan katalog bisa membawa pilihan: ...?jenis=PA-PL
+  const awalKode = new URLSearchParams(location.search).get("jenis");
+
+  rpc("pa_katalog_publik").then((k) => {
+    katalog = k || katalog;
+    if (awalKode) { pilih = katalog.jenis.find((j) => j.kode === awalKode) || null; if (pilih) $("#rincian").open = true; }
+    tampil(); tampilPilih();
+  }).catch((e) => { $("#katalog").innerHTML = '<p class="pesan galat"></p>'; $("#katalog p").textContent = "Katalog tidak termuat: " + e.message; });
+
+  $("#unduh").onclick = () => {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([terakhir], { type: "text/plain;charset=utf-8" }));
+    a.download = "Formulir Pesanan Puspa Agung.txt";
+    a.click();
+  };
+
+  $("#form").onsubmit = async (e) => {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    const pesan = $("#pesan");
+    pesan.hidden = false;
+    $("#tombol").disabled = true;
+    pesan.className = "pesan"; pesan.textContent = "Mengirim...";
+    try {
+      const r = await rpc("pa_formulir_kirim", {
+        p_nama: f.get("nama"), p_instansi: f.get("instansi") || "", p_wa: f.get("wa"), p_kode: pilih ? pilih.kode : "", p_kirim_tgl: f.get("tgl") || null,
+        p_kirim_jam: f.get("jam"), p_kota: f.get("kota"), p_alamat: f.get("alamat"),
+        p_teks: String(f.get("teks") || "").toUpperCase(), p_catatan: f.get("catatan"),
+      });
+      pesan.className = "pesan ok";
+      pesan.textContent = "Pesanan terkirim. Admin akan mengonfirmasi ongkos kirim lewat WhatsApp.";
+      // Format sama dengan formulir WA, supaya bisa diunggah admin ke aplikasi
+      const isian = [
+        "=== FORMULIR PESANAN PUSPA AGUNG FLORIST ===",
+        "Nama lengkap pengirim: " + f.get("nama"),
+        "Instansi / jabatan pengirim: " + (f.get("instansi") || ""),
+        "No. WA: " + f.get("wa"),
+        "Jenis / kode katalog: " + (pilih ? pilih.kode + " " + pilih.nama : ""),
+        "Tanggal kirim (tgl/bln/thn): " + (f.get("tgl") || ""),
+        "Jam kirim: " + (f.get("jam") || ""),
+        "Kota: " + (f.get("kota") || ""),
+        "Alamat kirim: " + (f.get("alamat") || ""),
+        "Teks papan / ucapan: " + String(f.get("teks") || "").toUpperCase(),
+        "Catatan: " + (f.get("catatan") || ""),
+        "=== SELESAI ===",
+      ].join("\n");
+      terakhir = isian;
+      $("#unduh").hidden = false;
+      const ringkas = "Halo admin Puspa Agung Florist, saya baru mengisi formulir pesanan" + (r.harga ? " (" + rp(r.harga) + ", ongkir menunggu konfirmasi)" : "") + ":\n\n" + isian;
+      const wa = String(r.wa_admin || katalog.wa_admin || "").replace(/\D/g, "");
+      if (wa) location.href = "https://wa.me/" + wa + "?text=" + encodeURIComponent(ringkas);
+      e.target.reset(); pilih = null; tampil(); tampilPilih();
+      document.querySelector('input[name="tgl"]').value = hari;
+    } catch (er) {
+      pesan.className = "pesan galat"; pesan.textContent = er.message;
+    }
+    $("#tombol").disabled = false;
+  };
+</script>
+</body>
+</html>
